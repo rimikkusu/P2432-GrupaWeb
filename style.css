@@ -33,15 +33,6 @@ body {
   font-size: 15px;
   line-height: 1.6;
 }
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: .18;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cpath d='M14 22h2v2h-2zM80 92h2v2h-2zM134 54h1v1h-1zM36 136h1v1h-1z' fill='%23b9b4c5'/%3E%3C/svg%3E");
-}
 a { color: inherit; text-decoration: none; }
 a { -webkit-tap-highlight-color: transparent; }
 svg { vertical-align: middle; }
@@ -77,37 +68,32 @@ a:focus-visible {
 .colleagues-section { padding-top: 36px; }
 
 
-/* Ramele au mici trepte si umbre ferme, fara efecte 3D. */
-.student-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 25px; padding: 3px 3px 12px; }
-.student-card { position: relative; display: flex; flex-direction: column; min-width: 0; background: #2c2a42; border: 2px solid #886477; padding: 7px; box-shadow: 3px 3px 0 #17192a; scroll-margin-top: 12px; transition: transform .2s, border-color .2s, box-shadow .2s; }
-.student-card::before, .student-card::after { content: ""; position: absolute; width: 12px; height: 6px; background: var(--peach); z-index: 1; }
-.student-card::before { top: -3px; left: 16px; }
-.student-card::after { bottom: -3px; right: 19px; background: var(--rose); }
-.student-card:nth-child(4n + 1) { transform: rotate(-.6deg); }
-.student-card:nth-child(4n + 3) { transform: rotate(.5deg); }
-.student-card:hover { border-color: var(--peach); transform: translateY(-5px) rotate(0); box-shadow: 4px 7px 0 #17192a; z-index: 1; }
-.student-card:target, .student-card.highlight { border-color: var(--peach); box-shadow: 0 0 0 3px var(--rose), 5px 7px 0 #17192a; }
-.student-card:focus { outline: 2px solid var(--peach); outline-offset: 5px; }
-.portrait-wrap { position: relative; flex-shrink: 0; overflow: hidden; background: var(--lavender); aspect-ratio: 1.3; border: 1px solid #1e2035; }
-.portrait-wrap > img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; transition: transform .25s; }
-.student-card:hover .portrait-wrap > img { transform: scale(1.035); }
-.card-number { position: absolute; top: 10px; left: 10px; font: 400 16px var(--pixel); color: var(--paper); background: #25263d85; padding: 0 5px; }
-.student-name { font: 500 22px/1.15 var(--pixel); color: var(--ink); background: var(--paper); padding: 11px 8px; margin: -1px -2px 0; position: relative; text-align: center; border: 2px solid var(--peach); box-shadow: 0 3px 0 #b5657655; }
-.student-description { flex: 1; font-size: 13px; line-height: 1.8; color: #cac3d2; padding: 0 7px; margin: 17px 0 15px; }
+/* Rama originala din Card.png, fara marginile transparente ale imaginii. */
+.student-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 25px; padding-bottom: 12px; align-items: start; }
+.student-card { position: relative; display: flex; flex-direction: column; min-width: 0; aspect-ratio: 58 / 93; padding: 7% 8% 9%; isolation: isolate; scroll-margin-top: 12px; transition: transform .2s; }
+.student-card::before { content: ""; position: absolute; inset: 0; z-index: -1; background: url("assets/Card.png") 45.455% 45.714% / 137.931% 137.634% no-repeat; image-rendering: pixelated; }
+.student-card:hover { transform: translateY(-5px); }
+.student-card:target, .student-card.highlight, .student-card:focus { outline: 2px solid var(--peach); outline-offset: 5px; }
+.portrait-wrap { position: relative; flex-shrink: 0; overflow: hidden; background: var(--lavender); aspect-ratio: 1.5; }
+.portrait-wrap > img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.card-number { position: absolute; top: 7px; left: 7px; font: 400 16px var(--pixel); color: var(--paper); background: #25263d85; padding: 0 5px; }
+.student-name { display: flex; align-items: center; justify-content: center; min-height: 48px; font: 500 22px/1.15 var(--pixel); color: var(--paper); text-align: center; margin: 12px 0 8px; }
+.student-description { flex: 1; font-size: 13px; line-height: 1.55; color: #cac3d2; margin: 0; }
 
-.site-footer { position: relative; padding-top: 70px; background: url("assets/footer-landscape.svg") bottom center / auto 100px repeat-x; }
+.site-footer { position: relative; padding-top: 70px; }
 .footer-inner { position: relative; min-height: 93px; padding: 20px 0 24px; border-top: 1px solid #64506666; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
 .footer-brand { font: 500 19px var(--pixel); color: var(--peach); }
 .back-top { display: flex; align-items: center; gap: 9px; color: var(--peach); font-size: 11px; }
 .back-top .icon { width: 14px; height: 14px; }
 
-@media (max-width: 1150px) {
+@media (max-width: 1200px) {
   .container { width: calc(100% - 64px); }
   .student-grid { gap: 25px 19px; }
-  .student-name { font-size: 20px; min-height: 69px; display: flex; align-items: center; justify-content: center; }
+  .student-name { font-size: 21px; }
+  .student-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 900px) {
-  .student-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .student-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 700px) {
   .colleagues-section { padding-top: 24px; }
@@ -119,18 +105,20 @@ a:focus-visible {
   .brand-mark { width: 50px; height: 50px; }
   .brand-subtitle { font-size: 9px; letter-spacing: 2px; margin-top: 4px; }
   .student-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; }
-  .student-card { padding: 5px; scroll-margin-top: 12px; }
-  .student-name { font-size: 19px; padding: 9px 4px; min-height: 65px; }
-  .student-description { font-size: 12px; line-height: 1.75; padding-inline: 5px; margin-top: 14px; }
+  .student-name { font-size: 21px; }
+  .student-description { font-size: 13px; }
   .card-number { font-size: 12px; left: 6px; top: 6px; }
   .footer-inner { flex-wrap: wrap; padding-block: 18px; gap: 8px; }
   .footer-brand { font-size: 16px; }
   .site-footer { padding-top: 60px; }
 }
+@media (max-width: 600px) {
+  .student-grid { grid-template-columns: minmax(0, 360px); justify-content: center; }
+}
 @media (max-width: 360px) {
   .container { width: calc(100% - 28px); }
-  .student-grid { grid-template-columns: 1fr; gap: 28px; padding-inline: 12px; }
-  .student-name { font-size: 23px; min-height: 0; }
+  .student-grid { gap: 28px; }
+  .student-name { font-size: 21px; }
   .student-description { font-size: 13px; }
 }
 @media (prefers-reduced-motion: reduce) {
